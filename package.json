@@ -4,13 +4,23 @@
   "description": "An input mask for template or currency",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test jest",
+    "test:coveralls": "yarn test --coverage --coverageReporters=text-lcov | coveralls",
+    "lint": "eslint src",
+    "start": "yarn storybook",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -s public",
+    "build": "babel src -d build --ignore \"src/**/*.spec.js\"",
+    "build:copy": "cp package.json README.md build",
+    "build:clear": "rm -rf build",
+    "deploy": "yarn build-storybook && yarn build && yarn build:copy && cd build && npm publish && cd - && yarn build:clear"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/grifo/react-g-input-mask.git"
   },
   "keywords": [
+    "react",
     "input",
     "mask",
     "formatter",
@@ -21,5 +31,43 @@
   "bugs": {
     "url": "https://github.com/grifo/react-g-input-mask/issues"
   },
-  "homepage": "https://github.com/grifo/react-g-input-mask#readme"
+  "homepage": "https://github.com/grifo/react-g-input-mask#readme",
+  "peerDependencies": {
+    "react": "^16.8.*",
+    "react-dom": "^16.8.*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^5.1.10",
+    "@storybook/addon-knobs": "^5.1.10",
+    "@storybook/addon-links": "^5.1.10",
+    "@storybook/addons": "^5.1.10",
+    "@storybook/react": "^5.1.10",
+    "@testing-library/react": "^8.0.8",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-config-standard-react": "^8.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^3.0.3",
+    "jest": "^24.8.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn test && yarn run lint"
+    }
+  },
+  "dependencies": {}
 }
