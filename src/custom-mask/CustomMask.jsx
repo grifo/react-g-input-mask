@@ -7,12 +7,12 @@ const patterns = {
   '*': /./
 }
 
-const CustomMask = ({ mask, placeholderChar, inputProps, as }) => {
+const CustomMask = ({ mask, placeholderChar, defaultValue, inputProps, as }) => {
   const ref = useRef()
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(defaultValue)
   const [sepChars, setSepChars] = useState([])
   const [patternsArray, setPatternsArray] = useState([])
-  const [cursorPosition, setCursorPosition] = useState(0)
+  const [cursorPosition, setCursorPosition] = useState(0) // TODO: Improve the cursor control
 
   useEffect(() => {
     const patternsArray = mask
@@ -99,6 +99,7 @@ const CustomMask = ({ mask, placeholderChar, inputProps, as }) => {
 CustomMask.propTypes = {
   mask: PropTypes.string.isRequired,
   placeholderChar: PropTypes.string,
+  defaultValue: PropTypes.string, // TODO: Needs to improve defaultProp code
   inputProps: PropTypes.shape({
     onChange: PropTypes.func,
     onKeyUp: PropTypes.func
@@ -111,6 +112,7 @@ CustomMask.propTypes = {
 
 CustomMask.defaultProps = {
   placeholderChar: '_',
+  defaultValue: '',
   inputProps: {},
   as: 'input'
 }

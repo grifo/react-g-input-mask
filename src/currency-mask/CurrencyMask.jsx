@@ -1,11 +1,11 @@
 import React, { useEffect, useReducer, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-const initialState = {
-  value: '',
+const initialState = (defaultValue) => ({
+  value: defaultValue,
   formatting: false,
   cursorPosition: 0
-}
+})
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,9 +40,9 @@ const formatCurrency = (value, { locale, currency }) => {
   }).format(number)
 }
 
-const CurrencyMask = ({ options, inputProps, as }) => {
+const CurrencyMask = ({ options, defaultValue, inputProps, as }) => {
   const ref = useRef()
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState(defaultValue))
   const { value, formatting, cursorPosition } = state
 
   useEffect(() => {
@@ -109,6 +109,7 @@ CurrencyMask.propTypes = {
     locale: PropTypes.string.isRequired,
     currency: PropTypes.string.isRequired
   }).isRequired,
+  defaultValue: PropTypes.string, // TODO: Improve defaultProp code
   inputProps: PropTypes.shape({
     onChange: PropTypes.func,
     onKeyUp: PropTypes.func
@@ -120,6 +121,7 @@ CurrencyMask.propTypes = {
 }
 
 CurrencyMask.defaultProps = {
+  defaultValue: '',
   inputProps: {},
   as: 'input'
 }
