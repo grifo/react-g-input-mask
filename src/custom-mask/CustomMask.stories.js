@@ -6,12 +6,14 @@ import CustomMask from './CustomMask'
 
 export default { title: 'CustomMask' }
 
-export const customMask = (info, mask, placeholderChar, onChange) => (
+export const customMask = (story, { mask, placeholderChar, onChange, onKeyUp } = {}) => (
   <CustomMask
-    mask={mask || text('Mask', '99/99/9999')}
-    placeholderChar={placeholderChar || text('Placeholder char', '_')}
+    mask={story ? text('Mask', '99/99/9999') : mask}
+    placeholderChar={story ? text('Placeholder char', '_') : placeholderChar}
     inputProps={{
-      onChange: onChange || action('onChange')
+      'data-testid': 'input',
+      onChange: story ? action('onChange') : onChange,
+      onKeyUp: story ? action('onKeyUp') : onKeyUp
     }}
   />
 )

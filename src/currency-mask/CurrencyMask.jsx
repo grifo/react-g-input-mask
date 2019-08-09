@@ -7,7 +7,7 @@ const initialState = (defaultValue) => ({
   cursorPosition: 0
 })
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case 'INPUT_VALUE':
       return {

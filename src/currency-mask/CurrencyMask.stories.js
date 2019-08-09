@@ -6,14 +6,16 @@ import CurrencyMask from './CurrencyMask'
 
 export default { title: 'CurrencyMask' }
 
-export const currencyMask = (info, locale, currency, onChange) => (
+export const currencyMask = (story, { locale, currency, onChange, onKeyUp } = {}) => (
   <CurrencyMask
     options={{
-      locale: locale || text('Locale', 'en-us'),
-      currency: currency || text('Currency', 'USD')
+      locale: story ? text('Locale', 'en-us') : locale,
+      currency: story ? text('Currency', 'USD') : currency
     }}
     inputProps={{
-      onChange: onChange || action('onChange')
+      'data-testid': 'input',
+      onChange: story ? action('onChange') : onChange,
+      onKeyUp: story ? action('onKeyUp') : onKeyUp
     }}
   />
 )

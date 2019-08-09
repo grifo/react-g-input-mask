@@ -8,6 +8,9 @@ module.exports = {
       statements: 100
     }
   },
+  coveragePathIgnorePatterns: [
+    '.stories.js'
+  ],
   setupFilesAfterEnv: [
     '@testing-library/react/cleanup-after-each',
     './setupTests.js'
